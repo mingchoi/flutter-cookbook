@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="prism.css" rel="stylesheet" />
+    <style>
+        body {
+            font-size: .875rem;
+        }
+
+        .feather {
+            width: 16px;
+            height: 16px;
+            vertical-align: text-bottom;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0;
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+        }
+
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: .5rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        @supports ((position: -webkit-sticky) or (position: sticky)) {
+            .sidebar-sticky {
+                position: -webkit-sticky;
+                position: sticky;
+            }
+        }
+
+        .sidebar .nav-link {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .sidebar .nav-link .feather {
+            margin-right: 4px;
+            color: #999;
+        }
+
+        .sidebar .nav-link.active {
+            color: #007bff;
+        }
+
+        .sidebar .nav-link:hover .feather,
+        .sidebar .nav-link.active .feather {
+            color: inherit;
+        }
+
+        .sidebar-heading {
+            font-size: .75rem;
+            text-transform: uppercase;
+        }
+
+        [role="main"] {
+            padding-top: 133px;
+        }
+
+        @media (min-width: 768px) {
+            [role="main"] {
+                padding-top: 48px;
+            }
+        }
+
+        .navbar-brand {
+            padding-top: .75rem;
+            padding-bottom: .75rem;
+            font-size: 1rem;
+            background-color: rgba(0, 0, 0, .25);
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+        }
+
+        .navbar .form-control {
+            padding: .75rem 1rem;
+            border-width: 0;
+            border-radius: 0;
+        }
+
+        .form-control-dark {
+            color: #fff;
+            background-color: rgba(255, 255, 255, .1);
+            border-color: rgba(255, 255, 255, .1);
+        }
+
+        .form-control-dark:focus {
+            border-color: transparent;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+        }
+
+        #flutter-iframe {
+            width: 324px;
+            height: 576px;
+            float: right;
+            border: 1px solid rgba(0, 0, 0, .1);
+        }
+
+        .mobile-float-clear {
+            display: none;
+        }
+
+        @media only screen and (max-width: 960px) {
+            #flutter-iframe {
+                float: left;
+            }
+
+            .mobile-float-clear {
+                clear: both;
+                display: block;
+            }
+        }
+    </style>
+    <script>
+
+        const updateCode = (source) => {
+            fetch(source).then(x => x.text()).then(
+                code => {
+                    document.getElementById("code-preview").innerHTML = code;
+                    Prism.highlightAll();
+                }
+            );
+        }
+
+        window.pageTable = [
+            { title: "Button", source: "widget/material/buttons/button.dart", launch: "widget/material/buttons/button.dart" },
+            { title: "Card", source: "widget/material/display/card.dart", launch: "widget/material/display/card.dart" },
+            { title: "Chip", source: "widget/material/display/chip.dart", launch: "widget/material/display/chip.dart" },
+            { title: "Data Table", source: "widget/material/display/data_table.dart", launch: "widget/material/display/data_table.dart" },
+            { title: "Grid View", source: "widget/material/display/gridview.dart", launch: "widget/material/display/gridview.dart" },
+            { title: "Image", source: "widget/material/display/image.dart", launch: "widget/material/display/image.dart" },
+            { title: "Linear Progress Indicator", source: "widget/material/display/linear_progress_indicator.dart", launch: "widget/material/display/linear_progress_indicator.dart" },
+            { title: "Progress Indicator", source: "widget/material/display/progress_indicator.dart", launch: "widget/material/display/progress_indicator.dart" },
+            { title: "Tooltip", source: "widget/material/display/tooltip.dart", launch: "widget/material/display/tooltip.dart" },
+            { title: "Bottom Navigation Bar", source: "widget/material/navigation/bottom_navigation_bar.dart", launch: "widget/material/navigation/bottom_navigation_bar.dart" },
+            { title: "Drawer", source: "widget/material/navigation/drawer.dart", launch: "widget/material/navigation/drawer.dart" },
+            { title: "Sliver AppBar", source: "widget/material/navigation/sliver_appbar.dart", launch: "widget/material/navigation/sliver_appbar.dart" },
+            { title: "Tab Bar", source: "widget/material/navigation/tab_bar.dart", launch: "widget/material/navigation/tab_bar.dart" },
+            { title: "Dialog", source: "widget/material/popup/dialog.dart", launch: "widget/material/popup/dialog.dart" },
+            { title: "Expansion Panel", source: "widget/material/popup/expansion_panel.dart", launch: "widget/material/popup/expansion_panel.dart" },
+            { title: "Snack Bar", source: "widget/material/popup/snack_bar.dart", launch: "widget/material/popup/snack_bar.dart" },
+        ];
+
+        window.displayPage = (page) => {
+            window.localStorage["flutter_launch"] = page.launch;
+            document.getElementById("flutter-iframe").contentWindow.location.reload(true);
+            page.source != updateCode(page.source);
+            document.getElementById("page-title").innerHTML = page.title;
+        }
+
+        window.onload = () => {
+            window.displayPage(window.pageTable[0]);
+        }
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Flutter</a>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <h6
+                            class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            Buttons
+                        </h6>
+                        <li class="nav-item" onclick="displayPage(window.pageTable[0])">
+                            <a class="nav-link" href="#">Button</a>
+                        </li>
+                        <h6
+                            class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            Display
+                        </h6>
+                        <li class="nav-item" onclick="displayPage(window.pageTable[1])">
+                            <a class="nav-link" href="#">Card</a>
+                        </li>
+                        <li class="nav-item" onclick="displayPage(window.pageTable[2])">
+                            <a class="nav-link" href="#">Chip</a>
+                        </li>
+                        <li class="nav-item" onclick="displayPage(window.pageTable[3])">
+                            <a class="nav-link" href="#">Data Table</a>
+                        </li>
+                        <li class="nav-item" onclick="displayPage(window.pageTable[4])">
+                            <a class="nav-link" href="#">Grid View</a>
+                        </li>
+                        <li class="nav-item" onclick="displayPage(window.pageTable[5])">
+                            <a class="nav-link" href="#">Image</a>
+                        </li>
+                        <li class="nav-item" onclick="displayPage(window.pageTable[6])">
+                            <a class="nav-link" href="#">Linear Progress Indicator</a>
+                        </li>
+                        <li class="nav-item" onclick="displayPage(window.pageTable[7])">
+                            <a class="nav-link" href="#">Progress Indicator</a>
+                        </li>
+                        <li class="nav-item" onclick="displayPage(window.pageTable[8])">
+                            <a class="nav-link" href="#">Tooltip</a>
+                        </li>
+                        <h6
+                            class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            Navigation
+                        </h6>
+                        <li class="nav-item" onclick="displayPage(window.pageTable[9])">
+                            <a class="nav-link" href="#">Bottom Navigation Bar</a>
+                        </li>
+                        <li class="nav-item" onclick="displayPage(window.pageTable[10])">
+                            <a class="nav-link" href="#">Drawer</a>
+                        </li>
+                        <li class="nav-item" onclick="displayPage(window.pageTable[11])">
+                            <a class="nav-link" href="#">Sliver AppBar</a>
+                        </li>
+                        <li class="nav-item" onclick="displayPage(window.pageTable[12])">
+                            <a class="nav-link" href="#">Tab Bar</a>
+                        </li>
+                        <h6
+                            class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            Popup
+                        </h6>
+                        <li class="nav-item" onclick="displayPage(window.pageTable[13])">
+                            <a class="nav-link" href="#">Dialog</a>
+                        </li>
+                        <li class="nav-item" onclick="displayPage(window.pageTable[14])">
+                            <a class="nav-link" href="#">Expansion Panel</a>
+                        </li>
+                        <li class="nav-item" onclick="displayPage(window.pageTable[15])">
+                            <a class="nav-link" href="#">Snack Bar</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 id="page-title" class="h2">Dashboard</h1>
+                </div>
+                <iframe id="flutter-iframe" src="flutter.html" width=324 height=576></iframe>
+                <div class="mobile-float-clear"></div>
+                <pre><code id="code-preview" class="lang-dart"></code></pre>
+                <div></div>
+                <div>Ming Choi 2019</div>
+            </main>
+        </div>
+    </div>
+    <script src="prism.js"></script>
+</body>
+
+</html>
