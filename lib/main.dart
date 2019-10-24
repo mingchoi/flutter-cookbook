@@ -1,24 +1,23 @@
-import 'package:flutter_web/material.dart';
-import 'package:flutter_web/cupertino.dart';
-import 'package:flutter_cookbook/widget/cupertino/button.dart';
-import 'package:flutter_cookbook/widget/cupertino/scaffold.dart';
-import 'package:flutter_cookbook/widget/material/buttons/button.dart';
-import 'package:flutter_cookbook/widget/material/navigation/bottom_navigation_bar.dart';
-import 'package:flutter_cookbook/widget/material/navigation/sliver_appbar.dart';
-import 'package:flutter_cookbook/widget/material/navigation/drawer.dart';
-import 'package:flutter_cookbook/widget/material/navigation/tab_bar.dart';
-import 'package:flutter_cookbook/widget/material/popup/dialog.dart';
-import 'package:flutter_cookbook/widget/material/popup/snack_bar.dart';
-import 'package:flutter_cookbook/widget/material/popup/expansion_panel.dart';
-import 'package:flutter_cookbook/widget/material/display/card.dart';
-import 'package:flutter_cookbook/widget/material/display/chip.dart';
-import 'package:flutter_cookbook/widget/material/display/progress_indicator.dart';
-import 'package:flutter_cookbook/widget/material/display/data_table.dart';
-import 'package:flutter_cookbook/widget/material/display/gridview.dart';
-import 'package:flutter_cookbook/widget/material/display/image.dart';
-import 'package:flutter_cookbook/widget/material/display/linear_progress_indicator.dart';
-import 'package:flutter_cookbook/widget/material/display/tooltip.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'dart:html';
+
+import 'material/buttons/button.dart';
+import 'material/display/card.dart';
+import 'material/display/chip.dart';
+import 'material/display/data_table.dart';
+import 'material/display/gridview.dart';
+import 'material/display/image.dart';
+import 'material/display/linear_progress_indicator.dart';
+import 'material/display/progress_indicator.dart';
+import 'material/display/tooltip.dart';
+import 'material/navigation/bottom_navigation_bar.dart';
+import 'material/navigation/drawer.dart';
+import 'material/navigation/sliver_appbar.dart';
+import 'material/navigation/tab_bar.dart';
+import 'material/popup/dialog.dart';
+import 'material/popup/expansion_panel.dart';
+import 'material/popup/snack_bar.dart';
 
 void main() => runApp(MyApp());
 
@@ -26,6 +25,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     Widget body;
     switch (window.localStorage["flutter_launch"]) {
       case "widget/material/buttons/button.dart":
